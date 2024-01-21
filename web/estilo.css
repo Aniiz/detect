@@ -41,6 +41,18 @@ h1 {
     justify-content: center;
 }
 
+.true {
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.false {
+    color: red;
+    font-weight: bold;
+    font-size: 40px;
+}
+
 /* green rgb(22, 196, 184); */
 input[type=file] {
     border: none;
