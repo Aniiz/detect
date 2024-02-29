@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request,render_template, jsonify
 from flask_cors import CORS
 import base64
 import os
@@ -6,26 +6,18 @@ from ultralytics import YOLO
 import cv2
 import numpy as np
 
-app = Flask(__name__)
+app = Flask(__name__ , static_folder='../web', template_folder='../web')
 CORS(app)
 
-
 def loadmodel():
-    # model = YOLO('App/best.pt')
-    # model = YOLO('App/best100EP.pt')
-    model = YOLO('App/best100EPHyper.pt')
-    # model = YOLO('App/best10EP.pt')
-    # model = YOLO('App/best50EP.pt')
-    # model = YOLO('App/best7K-5EP.pt')
-    # model = YOLO('App/epoca5.pt')
-    # model = torch.hub.load('ultralytics/yolov5', 'custom', path=r'App\best100G.pt', _verbose=False)
+    model = YOLO('App/best.pt')
     return model
 
 modelo  = loadmodel()
 
 @app.route("/", methods=["GET"])
 def index():
-    return  jsonify({"message": 'Object Detection'})
+    return render_template('index.html')
 
 @app.route("/detImg", methods=["POST"])
 def inference():
@@ -50,9 +42,9 @@ def inference():
     
     for i, item in enumerate(xyxy):
         x1, y1, x2, y2 = item.astype(int)
-        nova_img = cv2.rectangle(nova_img, (x1+margem, y1+margem), (x2+margem, y2+margem), (0,255,255), 2) # Desenha retangulo
+        nova_img = cv2.rectangle(nova_img, (x1+margem, y1+margem), (x2+margem, y2+margem), (255,255,255), 2) # Desenha retangulo
         text = f"{conf[i]:.3f}"
-        cv2.putText(nova_img, text, (x1+margem+2, y1+margem-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,255), 2) # Escreve a confiança
+        cv2.putText(nova_img, text, (x1+margem+2, y1+margem-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2) # Escreve a confiança
 
     cv2.imwrite(os.path.join('App/imgs', 'ferida_com_quadrado.jpg'), nova_img) #Salva a imagem da predição
 
@@ -61,9 +53,8 @@ def inference():
         imgPred = base64.b64encode(img_bytes).decode('utf-8')
 
     re = len(results[0]) # Extração dos resultados
-    print(conf)
 
     if re > 0:
-        return jsonify({"resp": True, "imgPred": imgPred})
+        return jsonify({"resp": True, "imgPred": imgPred, 'Qtd': re})
     if re == 0:
             return jsonify({"resp": False, "imgPred": imgPred})

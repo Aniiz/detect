@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wound Detection</title>
-    <link rel="stylesheet" href="./estilo.css">
+    <link rel="stylesheet" href="web/estilo.css">
 
 </head>
 
@@ -13,17 +13,24 @@
 
     <div class="container">
         <h1>Detector de feridas</h1>
+
         <div class="row">
             <div class="buttons">
-                <input id="file-selector" type="file" value="Anexar Imagem" multiple>
-                <button id="send" type="button">Detectar</button>
+                <div id="drop-area" style="border: 2px dashed #ccc; padding: 20px; text-align: center;">
+                    <input id="file-selector" type="file" style="display: none;" multiple>
+                    <p>Clique aqui ou arraste e solte uma imagem</p>
+                </div>
             </div>
-            <div id="my-div"></div>
+
+            <div id="my-div"> </div>
         </div>
+
+        <button id="send" type="button">Detectar</button>
     </div>
 
 
-    <script src="js.js"></script>
+    <script src="web/js.js"></script>
+    <script src="web/dragDrop.js"></script>
 </body>
 
 </html>

@@ -31,6 +31,8 @@ h1 {
     display: flex;
     flex-direction: column;
     width: 50%;
+    align-items: center;
+    justify-content: center;
 }
 
 #my-div {
@@ -39,29 +41,33 @@ h1 {
     height: 80vh;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+#drop-area {
+    display: flex;
+    width: 50%;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    color: #3e8e41;
+    font-weight: bold;
+    border-radius: 2%;
+    cursor: pointer;
 }
 
 .true {
     color: #4caf50;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 22px;
+    margin-top: 9px;
 }
 
 .false {
     color: red;
     font-weight: bold;
-    font-size: 40px;
-}
-
-/* green rgb(22, 196, 184); */
-input[type=file] {
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    color: #0a0a0a;
-    border-radius: 5px;
-    margin-right: 10px;
-    cursor: pointer;
+    font-size: 22px;
+    margin-top: 9px;
 }
 
 button {
@@ -72,8 +78,8 @@ button {
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
-    width: 50%;
-    margin: 50px 0 0 0;
+    width: 30%;
+    /* margin: 50px 0 0 0; */
 }
 
 button:hover {
